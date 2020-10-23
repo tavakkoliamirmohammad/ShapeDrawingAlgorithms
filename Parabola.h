@@ -9,9 +9,9 @@ namespace Parabola{
 
     void setPixel(int x, int y);
 
-    void MidPoint(int cx, int cy, int rx, int ry);
+    void MidPoint(float a, int xEnd);
 
-    void Bresenham(int xEnd, int yEnd);
+    void Bresenham(float a, int xEnd);
 
     void main(int argc, char **argv);
 }
