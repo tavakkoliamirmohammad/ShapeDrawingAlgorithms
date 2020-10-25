@@ -17,14 +17,13 @@ void Parabola::Bresenham(float a, int xEnd) {
         Parabola::setPixel(round(x), round(y));
         Parabola::setPixel(-round(x), round(y));
         if (d < 0) {
-            d += 4 * a * x + 4 * a;
+            d += 4 * a * x + 6 * a;
         } else {
-            d += 4 * a * x + 4 * a - 2;
+            d += 4 * a * x + 6 * a - 2;
             ++y;
         }
         ++x;
     }
-    d = a - 2;
     while (x <= xEnd) {
         Parabola::setPixel(round(x), round(y));
         Parabola::setPixel(-round(x), round(y));
@@ -53,7 +52,6 @@ void Parabola::MidPoint(float a, int xEnd) {
         }
         ++x;
     }
-    d = a * (x + 0.5) * (x + 0.5) - (y + 1);
     while (x <= xEnd) {
         Parabola::setPixel(round(x), round(y));
         Parabola::setPixel(-round(x), round(y));
@@ -80,7 +78,7 @@ void Parabola::reshape(int width, int height) {
 
 void Parabola::render() {
     glClear(GL_COLOR_BUFFER_BIT);
-    Parabola::Bresenham(0.01, 900);
+    Parabola::MidPoint(0.001, 900);
     glFlush();
 }
 
