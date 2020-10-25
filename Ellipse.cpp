@@ -25,6 +25,55 @@ void Ellipse::Bresenham(int cx, int cy, int rx, int ry) {
         }
         ++x;
     }
+    while (y > 0) {
+        Ellipse::setPixel(cx + x, cy + y);
+        Ellipse::setPixel(cx - x, cy + y);
+        Ellipse::setPixel(cx + x, cy - y);
+        Ellipse::setPixel(cx - x, cy - y);
+        if (d > 0) {
+            d += rx * rx * (-4 * y + 6);
+        } else {
+            d += ry * ry * (4 * x + 4) + rx * rx * (-4 * y + 6);
+            x++;
+        }
+        --y;
+    }
+}
+
+void Ellipse::MidPoint(int cx, int cy, int rx, int ry) {
+    int x = 0;
+    int y = ry;
+
+    int d = ry * ry - rx * rx * ry + rx * rx / 4;
+    while (ry * ry * x < rx * rx * y) {
+        Ellipse::setPixel(cx + x, cy + y);
+        Ellipse::setPixel(cx - x, cy + y);
+        Ellipse::setPixel(cx + x, cy - y);
+        Ellipse::setPixel(cx - x, cy - y);
+
+        if (d < 0) {
+            d += 2 * ry * ry * x + ry * ry;
+        } else {
+            d += 2 * ry * ry * x + ry * ry - 2 * rx * rx * y;
+            y--;
+        }
+        x++;
+    }
+
+    while (y > 0) {
+        Ellipse::setPixel(cx + x, cy + y);
+        Ellipse::setPixel(cx - x, cy + y);
+        Ellipse::setPixel(cx + x, cy - y);
+        Ellipse::setPixel(cx - x, cy - y);
+
+        if (d < 0) {
+            d += 2 * rx * rx * y + rx * rx;
+        } else {
+            d += 2 * rx * rx * y + rx * rx - 2 * ry * ry * x;
+            x++;
+        }
+        y--;
+    }
 }
 
 void Ellipse::reshape(int width, int height) {
@@ -40,7 +89,7 @@ void Ellipse::reshape(int width, int height) {
 
 void Ellipse::render() {
     glClear(GL_COLOR_BUFFER_BIT);
-    Ellipse::Bresenham(500, 500, 200, 300);
+    Ellipse::MidPoint(500, 500, 400, 300);
     glFlush();
 }
 
