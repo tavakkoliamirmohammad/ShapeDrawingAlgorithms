@@ -1,6 +1,6 @@
-#include "PingPong.h"
+#include "Circles.h"
 
 int main(int argc, char **argv) {
-    PingPong::main(argc, argv);
+    Circles::main(argc, argv);
     return 0;
 }

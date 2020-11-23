@@ -14,7 +14,8 @@ namespace Circles {
     void ParametricEquation(int cx, int cy, int r);
 
     void Bresenham(int cx, int cy, int r);
-
+    void BresenhamFill(int cx, int cy, int r);
+    void fillhorizontalLine(int xStart, int xEnd, int y);
     void MidPoint(int cx, int cy, int r);
 
     void main(int argc, char **argv);
