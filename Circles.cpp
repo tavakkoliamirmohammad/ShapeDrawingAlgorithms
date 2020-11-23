@@ -19,7 +19,8 @@ void Circles::DirectEquation(int cx, int cy, int r) {
     }
 }
 
-void Circles::fillhorizontalLine(int xStart, int xEnd, int y){
+void Circles::fillHorizontalLine(int xStart, int xEnd, int y){
+    glColor3f(1.0, 0.0, 0.0);
     glBegin(GL_LINES);
     glVertex2i(xStart, y);
     glVertex2i(xEnd, y);
@@ -30,12 +31,11 @@ void Circles::fillhorizontalLine(int xStart, int xEnd, int y){
 void Circles::BresenhamFill(int cx, int cy, int r){
     int d = 3 - 2 * r;
     int x = 0, y = r;
-    glColor3f(1.0, 0.0, 0.0);
     while (x <= y) {
-        fillhorizontalLine(cx + x, cx - x, cy + y);
-        fillhorizontalLine(cx + x, cx - x, cy - y);
-        fillhorizontalLine(cx + y, cx - y, cy + x);
-        fillhorizontalLine(cx + y, cx - y, cy - x);
+        fillHorizontalLine(cx + x, cx - x, cy + y);
+        fillHorizontalLine(cx + x, cx - x, cy - y);
+        fillHorizontalLine(cx + y, cx - y, cy + x);
+        fillHorizontalLine(cx + y, cx - y, cy - x);
         if (d < 0) {
             d += 4 * x + 6;
         } else {

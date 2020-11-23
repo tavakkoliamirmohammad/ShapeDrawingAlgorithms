@@ -117,6 +117,41 @@ void Ellipse::arcMidpoint(int cx, int cy, int rx, int ry, int start, int end) {
     }
 }
 
+void Ellipse::fillHorizontalLine(int xStart, int xEnd, int y){
+    glColor3f(1.0, 0.0, 0.0);
+    glBegin(GL_LINES);
+    glVertex2i(xStart, y);
+    glVertex2i(xEnd, y);
+    glEnd();
+}
+
+void Ellipse::BresenhamFill(int cx, int cy, int rx, int ry){
+    int d = 2 * ry * ry + rx * rx - 2 * rx * rx * ry;
+    int x = 0, y = ry;
+    while (ry * ry * x < rx * rx * y) {
+        fillHorizontalLine(cx + x, cx - x, cy + y);
+        fillHorizontalLine(cx + x, cx - x, cy - y);
+        if (d < 0) {
+            d += ry * ry * (4 * x + 6);
+        } else {
+            d += ry * ry * (4 * x + 6) + rx * rx * (4 - 4 * y);
+            --y;
+        }
+        ++x;
+    }
+    while (y >= 0) {
+        fillHorizontalLine(cx + x, cx - x, cy + y);
+        fillHorizontalLine(cx + x, cx - x, cy - y);
+        if (d > 0) {
+            d += rx * rx * (-4 * y + 6);
+        } else {
+            d += ry * ry * (4 * x + 4) + rx * rx * (-4 * y + 6);
+            x++;
+        }
+        --y;
+    }
+}
+
 void Ellipse::Bresenham(int cx, int cy, int rx, int ry) {
     int d = 2 * ry * ry + rx * rx - 2 * rx * rx * ry;
     int x = 0, y = ry;
@@ -133,7 +168,7 @@ void Ellipse::Bresenham(int cx, int cy, int rx, int ry) {
         }
         ++x;
     }
-    while (y > 0) {
+    while (y >= 0) {
         Ellipse::setPixel(cx + x, cy + y);
         Ellipse::setPixel(cx - x, cy + y);
         Ellipse::setPixel(cx + x, cy - y);
@@ -197,7 +232,7 @@ void Ellipse::reshape(int width, int height) {
 
 void Ellipse::render() {
     glClear(GL_COLOR_BUFFER_BIT);
-    Ellipse::arcMidpoint(500, 500, 100, 400, 0, 95);
+    Ellipse::BresenhamFill(500, 500, 400, 200);
     glFlush();
 }
 
