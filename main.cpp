@@ -1,6 +1,6 @@
-#include "Ellipse.h"
+#include "Convex.h"
 
 int main(int argc, char **argv) {
-    Ellipse::main(argc, argv);
+    Convex::main(argc, argv);
     return 0;
 }

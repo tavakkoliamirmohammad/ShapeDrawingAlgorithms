@@ -11,11 +11,19 @@ namespace Convex {
         }
     };
 
+    void render();
+
+    void reshape(int width, int height);
+
     std::vector<std::vector<Point>> vectorMethod(std::vector<Point> points);
 
     bool checkIntersection(Point p1, Point p2, Point p3, Point p4);
 
     Point findIntersection(Point p1, Point p2, Point p3, Point p4);
+
+    void showSinglePolygon(std::vector<Point> points);
+
+    void showVectorPolygon(std::vector<std::vector<Point>> vPoints);
 
     void main(int argc, char **argv);
 }
